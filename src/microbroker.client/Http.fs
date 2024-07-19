@@ -50,7 +50,7 @@ type HttpRequestResponse =
         | _ -> None
 
 [<ExcludeFromCodeCoverage>]
-module Http =
+module internal Http =
 
     let body (resp: HttpResponseMessage) =
         task {
