@@ -1,8 +1,8 @@
-﻿namespace microbroker.client.tests
+﻿namespace Microbroker.Client.Tests
 
 open System
 open System.Net
-open microbroker.client
+open Microbroker.Client
 open Microsoft.Extensions.Logging
 open NSubstitute
 open Xunit

@@ -1,7 +1,7 @@
-﻿namespace microbroker.client.tests
+﻿namespace Microbroker.Client.Tests
 
 open System
-open microbroker.client
+open Microbroker.Client
 open Xunit
 open FsUnit
 

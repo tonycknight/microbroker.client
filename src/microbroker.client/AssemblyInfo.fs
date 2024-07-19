@@ -2,5 +2,5 @@
 
 open System.Runtime.CompilerServices
 
-[<assembly: InternalsVisibleTo("microbroker.client.tests")>]
+[<assembly: InternalsVisibleTo("Microbroker.Client.Tests")>]
 do ()

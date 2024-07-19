@@ -1,4 +1,4 @@
-﻿namespace microbroker.client
+﻿namespace Microbroker.Client
 
 open Microsoft.Extensions.DependencyInjection
 
