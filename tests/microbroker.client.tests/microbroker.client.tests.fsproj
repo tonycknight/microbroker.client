@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <Compile Include="StringsTests.fs" />
+    <Compile Include="MicrobrokerProxyTests.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 

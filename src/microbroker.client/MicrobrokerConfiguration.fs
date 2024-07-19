@@ -1,3 +1,7 @@
 ﻿namespace microbroker.client
 
-type MicrobrokerConfiguration = { brokerBaseUrl: string }
+open System
+
+type MicrobrokerConfiguration =
+    { brokerBaseUrl: string
+      throttleMaxTime: TimeSpan }

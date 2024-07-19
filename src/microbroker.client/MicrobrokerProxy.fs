@@ -35,26 +35,6 @@ type MicrobrokerProxy(config: MicrobrokerConfiguration, httpClient: IHttpClient,
             return result
         }
 
-    let getNext queue =
-        // TODO: throttle time config
-        Throttling.exponentialWait (TimeSpan.FromSeconds 5.) (fun () -> getNextFromBroker queue)
-
-    let postToBroker (queue: string) message =
-        task {
-            let brokerMessage = MicrobrokerMessages.toJson message
-
-            let url = $"{config.brokerBaseUrl |> Uri.trimSlash}/queues/{queue}/message/"
-
-            try
-                let! resp = httpClient.PostAsync url brokerMessage
-
-                match resp with
-                | HttpOkRequestResponse _ -> ignore 0
-                | _ -> HttpRequestResponse.loggable resp |> log.LogError
-
-            with ex ->
-                log.LogError(ex, ex.Message)
-        }
 
     let postManyToBroker (queue: string) (messages: seq<MicrobrokerMessage>) =
         task {
@@ -63,7 +43,7 @@ type MicrobrokerProxy(config: MicrobrokerConfiguration, httpClient: IHttpClient,
             if messages.Length > 0 then
                 let brokerMessages = MicrobrokerMessages.toJsonArray messages
 
-                let url = $"{config.brokerBaseUrl |> Uri.trimSlash}/queues/{queue}/messages/"
+                let url = $"{Uri.trimSlash config.brokerBaseUrl}/queues/{queue}/messages/"
 
                 try
                     match! httpClient.PostAsync url brokerMessages with
@@ -76,7 +56,7 @@ type MicrobrokerProxy(config: MicrobrokerConfiguration, httpClient: IHttpClient,
 
     let queueCounts () =
         task {
-            let url = $"{config.brokerBaseUrl |> Uri.trimSlash}/queues/"
+            let url = $"{Uri.trimSlash config.brokerBaseUrl}/queues/"
             let! resp = httpClient.GetAsync url
 
             return
@@ -91,7 +71,8 @@ type MicrobrokerProxy(config: MicrobrokerConfiguration, httpClient: IHttpClient,
     interface IMicrobrokerProxy with
         member this.PostMany queue messages = postManyToBroker queue messages
 
-        member this.GetNext queue = getNext queue
+        member this.GetNext queue =
+            Throttling.exponentialWait config.throttleMaxTime (fun () -> getNextFromBroker queue)
 
         member this.GetQueueCounts(queues: string[]) =
             task {

@@ -95,8 +95,8 @@ module internal Http =
 
                 return HttpOkRequestResponse(resp.StatusCode, body, mediaType, respHeaders)
             }
-        | false, HttpStatusCode.TooManyRequests -> HttpTooManyRequestsResponse(respHeaders) |> Threading.toTaskResult
-        | false, HttpStatusCode.BadGateway -> HttpBadGatewayResponse(respHeaders) |> Threading.toTaskResult
+        | false, HttpStatusCode.TooManyRequests -> HttpTooManyRequestsResponse(respHeaders) |> Tasks.toTaskResult
+        | false, HttpStatusCode.BadGateway -> HttpBadGatewayResponse(respHeaders) |> Tasks.toTaskResult
         | false, _ ->
             task {
                 let! body = body resp

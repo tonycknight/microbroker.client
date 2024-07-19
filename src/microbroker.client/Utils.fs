@@ -59,7 +59,7 @@ module internal Option =
             Some value
 
 [<ExcludeFromCodeCoverage>]
-module internal Threading =
+module internal Tasks =
     let toTaskResult (value) =
         System.Threading.Tasks.Task.FromResult(value)
 
