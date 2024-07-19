@@ -1,0 +1,85 @@
+﻿namespace microbroker.client
+
+open System
+open System.Diagnostics.CodeAnalysis
+
+[<ExcludeFromCodeCoverage>]
+module internal Strings =
+
+    let toLower (value: string) = value.ToLower()
+
+    let toUpper (value: string) = value.ToUpper()
+
+    let fromGzip (value: System.IO.Stream) =
+        let bufferSize = 512
+        let buffer = Array.create<byte> bufferSize 0uy
+        use outStream = new System.IO.MemoryStream()
+
+        use decomp =
+            new System.IO.Compression.GZipStream(value, System.IO.Compression.CompressionMode.Decompress)
+
+        let mutable len = -1
+
+        while len <> 0 do
+            len <- decomp.Read(buffer)
+
+            if len > 0 then
+                outStream.Write(buffer, 0, len)
+
+        outStream.Seek(0, System.IO.SeekOrigin.Begin) |> ignore
+        use reader = new System.IO.StreamReader(outStream)
+        reader.ReadToEnd()
+
+    let toGzip (value: string) =
+        let bytes = System.Text.Encoding.UTF8.GetBytes(value)
+        use outStream = new System.IO.MemoryStream()
+
+        use comp =
+            new System.IO.Compression.GZipStream(outStream, System.IO.Compression.CompressionMode.Compress)
+
+        comp.Write(bytes)
+        comp.Flush()
+        outStream.Seek(0, System.IO.SeekOrigin.Begin) |> ignore
+        outStream.ToArray()
+
+[<ExcludeFromCodeCoverage>]
+module internal Option =
+    let nullToOption (value: obj) =
+        if value = null then None else Some value
+
+    let optionToNullObject value =
+        match value with
+        | Some value -> value :> System.Object
+        | _ -> null
+
+    let ofNull<'a> (value: 'a) =
+        if Object.ReferenceEquals(value, null) then
+            None
+        else
+            Some value
+
+[<ExcludeFromCodeCoverage>]
+module internal Threading =
+    let toTaskResult (value) =
+        System.Threading.Tasks.Task.FromResult(value)
+
+[<ExcludeFromCodeCoverage>]
+module internal Time =
+    let toDateTimeOffset (value: DateTime) = new DateTimeOffset(value)
+
+    let now () = DateTimeOffset.UtcNow
+
+    let add (span: TimeSpan) (value: DateTimeOffset) = value.Add(span)
+
+[<ExcludeFromCodeCoverage>]
+module internal Uri =
+    let tryParse (uri: string) =
+        match Uri.IsWellFormedUriString(uri, UriKind.Absolute) with
+        | true -> new Uri(uri) |> Some
+        | _ -> None
+
+    let trimSlash (uri: string) =
+        if uri.EndsWith("/") then
+            uri.Substring(0, uri.Length - 1)
+        else
+            uri

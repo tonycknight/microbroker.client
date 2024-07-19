@@ -1,0 +1,5 @@
+group Main
+FSharp.Core
+Microsoft.Extensions.DependencyInjection.Abstractions
+Microsoft.Extensions.Logging
+Newtonsoft.Json
