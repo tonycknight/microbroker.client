@@ -16,7 +16,7 @@ type IMicrobrokerProxy =
     abstract member GetNext: string -> Task<MicrobrokerMessage option>
     abstract member GetQueueCounts: string[] -> Task<MicrobrokerCount[]>
 
-type MicrobrokerProxy(config: MicrobrokerConfiguration, httpClient: IHttpClient, logger: ILoggerFactory) =
+type internal MicrobrokerProxy(config: MicrobrokerConfiguration, httpClient: IHttpClient, logger: ILoggerFactory) =
     let log = logger.CreateLogger<MicrobrokerProxy>()
 
     let getNextFromBroker (queue: string) =
