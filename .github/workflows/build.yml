@@ -128,4 +128,6 @@ jobs:
       - name: Create Nuget package
         run: dotnet pack ./src/microbroker.client/Microbroker.Client.fsproj -c Release -o ./package/ /p:PackageVersion=${{ env.build-version-number }} /p:Version=${{ env.build-version-number }} /p:AssemblyInformationalVersion=${{ env.build-version-number }}
       
-      
+      - name: Push nuget package
+        if: github.event_name == 'push'
+        run: dotnet nuget push "package/*.nupkg"  --api-key ${{ secrets.NUGET_PAT }} --source "nuget.org"
