@@ -5,10 +5,11 @@ open System.Diagnostics.CodeAnalysis
 open System.Threading.Tasks
 open System.Net
 open System.Net.Http
+open Microbroker.Client
 
-type HttpResponseHeaders = (string * string) list
+type internal HttpResponseHeaders = (string * string) list
 
-type HttpRequestResponse =
+type internal HttpRequestResponse =
     | HttpOkRequestResponse of
         status: HttpStatusCode *
         body: string *
@@ -96,7 +97,7 @@ module internal Http =
 
     let encodeUrl (value: string) = System.Web.HttpUtility.UrlEncode value
 
-type IHttpClient =
+type internal IHttpClient =
     abstract member GetAsync: url: string -> Task<HttpRequestResponse>
     abstract member PutAsync: url: string -> content: string -> Task<HttpRequestResponse>
     abstract member PostAsync: url: string -> content: string -> Task<HttpRequestResponse>

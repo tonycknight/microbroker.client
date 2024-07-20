@@ -55,7 +55,6 @@ module internal Strings =
         else
             uri
 
-
 [<ExcludeFromCodeCoverage>]
 module internal Option =
 
