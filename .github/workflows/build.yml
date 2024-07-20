@@ -126,6 +126,6 @@ jobs:
           echo "build-version-number=${{ env.build-version-number }}-preview" >> $GITHUB_ENV
 
       - name: Create Nuget package
-        run: dotnet pack ./src/microbroker.client/Microbroker.Client.fsproj -c Release -o /package /p:PackageVersion=${{ env.build-version-number }} /p:Version=${{ env.build-version-number }} /p:AssemblyInformationalVersion=${{ env.build-version-number }}
+        run: dotnet pack ./src/microbroker.client/Microbroker.Client.fsproj -c Release -o /package/ /p:PackageVersion=${{ env.build-version-number }} /p:Version=${{ env.build-version-number }} /p:AssemblyInformationalVersion=${{ env.build-version-number }}
       
       
