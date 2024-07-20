@@ -7,7 +7,7 @@ open Microbroker.Client
 open NSubstitute
 
 module internal TestUtils =
-    
+
     let toJson values =
         Newtonsoft.Json.JsonConvert.SerializeObject values
 
@@ -57,5 +57,3 @@ module internal TestUtils =
         new MicrobrokerProxy(config, client, logger) :> IMicrobrokerProxy
 
     let defaultProxy client = proxy testConfig logger client
-
-
