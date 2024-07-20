@@ -33,7 +33,7 @@ module StringsTests =
 
     [<Property(Verbose = true)>]
     let ``trimSlash returns slashless string`` (value: NonEmptyString) (appendSlash: bool) =
-        
+
         let s = value.Get.Replace("/", "") + (if appendSlash then "/" else "")
 
         let r = Strings.trimSlash s

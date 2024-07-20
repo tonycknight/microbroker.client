@@ -77,4 +77,3 @@ module internal Time =
     let now () = DateTimeOffset.UtcNow
 
     let add (span: TimeSpan) (value: DateTimeOffset) = value.Add(span)
-
