@@ -49,6 +49,13 @@ module internal Strings =
         outStream.Seek(0, System.IO.SeekOrigin.Begin) |> ignore
         outStream.ToArray()
 
+    let trimSlash (uri: string) =
+        if uri.EndsWith("/") then
+            uri.Substring(0, uri.Length - 1)
+        else
+            uri
+
+
 [<ExcludeFromCodeCoverage>]
 module internal Option =
 
@@ -71,11 +78,3 @@ module internal Time =
 
     let add (span: TimeSpan) (value: DateTimeOffset) = value.Add(span)
 
-[<ExcludeFromCodeCoverage>]
-module internal Uri =
-
-    let trimSlash (uri: string) =
-        if uri.EndsWith("/") then
-            uri.Substring(0, uri.Length - 1)
-        else
-            uri

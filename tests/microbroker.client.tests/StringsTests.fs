@@ -30,3 +30,12 @@ module StringsTests =
         let r = Strings.toUpper value.Get
 
         r |> Seq.filter Char.IsLetter |> Seq.forall Char.IsUpper
+
+    [<Property(Verbose = true)>]
+    let ``trimSlash returns slashless string`` (value: NonEmptyString) (appendSlash: bool) =
+        
+        let s = value.Get.Replace("/", "") + (if appendSlash then "/" else "")
+
+        let r = Strings.trimSlash s
+
+        r.EndsWith("/") = false

@@ -20,7 +20,7 @@ type MicrobrokerProxy(config: MicrobrokerConfiguration, httpClient: IHttpClient,
 
     let getNextFromBroker (queue: string) =
         task {
-            let url = $"{config.brokerBaseUrl |> Uri.trimSlash}/queues/{queue}/message/"
+            let url = $"{config.brokerBaseUrl |> Strings.trimSlash}/queues/{queue}/message/"
             let! rep = httpClient.GetAsync url
 
             let result =
@@ -43,7 +43,7 @@ type MicrobrokerProxy(config: MicrobrokerConfiguration, httpClient: IHttpClient,
             if messages.Length > 0 then
                 let brokerMessages = MicrobrokerMessages.toJsonArray messages
 
-                let url = $"{Uri.trimSlash config.brokerBaseUrl}/queues/{queue}/messages/"
+                let url = $"{Strings.trimSlash config.brokerBaseUrl}/queues/{queue}/messages/"
 
                 try
                     match! httpClient.PostAsync url brokerMessages with
@@ -56,7 +56,7 @@ type MicrobrokerProxy(config: MicrobrokerConfiguration, httpClient: IHttpClient,
 
     let queueCounts () =
         task {
-            let url = $"{Uri.trimSlash config.brokerBaseUrl}/queues/"
+            let url = $"{Strings.trimSlash config.brokerBaseUrl}/queues/"
             let! resp = httpClient.GetAsync url
 
             return
