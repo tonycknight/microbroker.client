@@ -5,5 +5,5 @@ open Microsoft.Extensions.DependencyInjection
 module Startup =
     let addServices (sp: IServiceCollection) =
         sp
-            .AddSingleton<Http.IHttpClient, Http.InternalHttpClient>()
+            .AddSingleton<IHttpClient, InternalHttpClient>()
             .AddSingleton<IMicrobrokerProxy, MicrobrokerProxy>()

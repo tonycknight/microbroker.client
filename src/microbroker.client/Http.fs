@@ -1,4 +1,4 @@
-﻿namespace Microbroker.Client.Http
+﻿namespace Microbroker.Client
 
 open System
 open System.Diagnostics.CodeAnalysis

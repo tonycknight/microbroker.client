@@ -4,7 +4,6 @@ open System
 open System.Net
 open Microsoft.Extensions.Logging
 open Microbroker.Client
-open Microbroker.Client.Http
 open NSubstitute
 
 module internal TestUtils =
