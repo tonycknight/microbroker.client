@@ -8,7 +8,8 @@
     <Version>0.0.0</Version>
     <PackageId>Microbroker.Client</PackageId>
     <RepositoryUrl>https://github.com/tonycknight/microbroker.client</RepositoryUrl>
-    <PackageProjectUrl>https://github.com/tonycknight/microbroker.client</PackageProjectUrl>    
+    <PackageProjectUrl>https://github.com/tonycknight/microbroker.client</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>    
   </PropertyGroup>
 
   <ItemGroup>
