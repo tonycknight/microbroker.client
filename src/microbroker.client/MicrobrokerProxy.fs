@@ -4,6 +4,7 @@ open System
 open System.Net
 open System.Threading.Tasks
 open Microsoft.Extensions.Logging
+open Microbroker.Client.Http
 
 type MicrobrokerCount =
     { name: string

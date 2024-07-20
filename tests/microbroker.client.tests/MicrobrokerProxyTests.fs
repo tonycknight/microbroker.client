@@ -3,6 +3,7 @@
 open System
 open System.Net
 open Microbroker.Client
+open Microbroker.Client.Http
 open Microsoft.Extensions.Logging
 open NSubstitute
 open Xunit

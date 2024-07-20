@@ -1,10 +1,11 @@
-﻿namespace Microbroker.Client
+﻿namespace Microbroker.Client.Http
 
 open System
 open System.Diagnostics.CodeAnalysis
 open System.Threading.Tasks
 open System.Net
 open System.Net.Http
+open Microbroker.Client
 
 type HttpResponseHeaders = (string * string) list
 
