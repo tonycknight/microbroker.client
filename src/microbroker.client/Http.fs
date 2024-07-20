@@ -31,24 +31,6 @@ type HttpRequestResponse =
         let status = HttpRequestResponse.status response
         $"{response.GetType().Name} {status}"
 
-    static member headers(response: HttpRequestResponse) =
-        match response with
-        | HttpOkRequestResponse(_, _, _, headers) -> headers
-        | HttpTooManyRequestsResponse(headers) -> headers
-        | HttpErrorRequestResponse(_, _, headers) -> headers
-        | _ -> []
-
-    static member headerValues name (response: HttpRequestResponse) =
-        response
-        |> HttpRequestResponse.headers
-        |> Seq.filter (fun t -> StringComparer.InvariantCultureIgnoreCase.Equals(fst t, name))
-        |> Seq.map snd
-
-    static member okBody(response: HttpRequestResponse) =
-        match response with
-        | HttpOkRequestResponse(_, json, _, _) -> Some json
-        | _ -> None
-
 [<ExcludeFromCodeCoverage>]
 module internal Http =
 

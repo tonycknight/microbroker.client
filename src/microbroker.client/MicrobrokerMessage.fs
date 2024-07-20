@@ -16,23 +16,6 @@ module MicrobrokerMessages =
         with ex ->
             None
 
-    let internal toEntity<'a> (message: MicrobrokerMessage) =
-        try
-            Newtonsoft.Json.JsonConvert.DeserializeObject<'a>(message.content) |> Some
-        with ex ->
-            None
-
-    let internal fromEntity (messageType: string) (message: 'a) =
-        let j = Newtonsoft.Json.JsonConvert.SerializeObject(message)
-
-        { MicrobrokerMessage.messageType = messageType
-          content = j
-          created = DateTimeOffset.UtcNow
-          active = DateTimeOffset.MinValue }
-
-    let internal toJson (message: MicrobrokerMessage) =
-        Newtonsoft.Json.JsonConvert.SerializeObject(message)
-
     let internal toJsonArray (messages: MicrobrokerMessage[]) =
         Newtonsoft.Json.JsonConvert.SerializeObject(messages)
 

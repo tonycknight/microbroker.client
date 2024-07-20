@@ -44,13 +44,6 @@ module internal Strings =
 
 [<ExcludeFromCodeCoverage>]
 module internal Option =
-    let nullToOption (value: obj) =
-        if value = null then None else Some value
-
-    let optionToNullObject value =
-        match value with
-        | Some value -> value :> System.Object
-        | _ -> null
 
     let ofNull<'a> (value: 'a) =
         if Object.ReferenceEquals(value, null) then
@@ -73,10 +66,6 @@ module internal Time =
 
 [<ExcludeFromCodeCoverage>]
 module internal Uri =
-    let tryParse (uri: string) =
-        match Uri.IsWellFormedUriString(uri, UriKind.Absolute) with
-        | true -> new Uri(uri) |> Some
-        | _ -> None
 
     let trimSlash (uri: string) =
         if uri.EndsWith("/") then
