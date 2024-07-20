@@ -3,7 +3,14 @@
 open System
 open System.Diagnostics.CodeAnalysis
 
+[<AutoOpen>]
 [<ExcludeFromCodeCoverage>]
+module internal Combinators =
+
+    let (&&>>) x y = (fun (v: 'a) -> x (v) && y (v))
+
+    let (||>>) x y = (fun (v: 'a) -> x (v) || y (v))
+
 module internal Strings =
 
     let toLower (value: string) = value.ToLower()
