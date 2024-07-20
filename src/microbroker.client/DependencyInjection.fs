@@ -2,7 +2,7 @@
 
 open Microsoft.Extensions.DependencyInjection
 
-module Startup =
+module DependencyInjection =
     let addServices (sp: IServiceCollection) =
         sp
             .AddSingleton<IHttpClient, InternalHttpClient>()
