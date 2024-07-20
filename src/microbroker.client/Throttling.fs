@@ -3,8 +3,6 @@
 open System
 open System.Threading.Tasks
 
-type internal WindowThrottlingCounts = Map<DateTime, int>
-
 module internal Throttling =
 
     let exponentialWait duration func =
