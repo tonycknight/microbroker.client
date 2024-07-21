@@ -21,7 +21,7 @@ module DependencyInjectionTests =
           throttleMaxTime = TimeSpan.FromSeconds 5. }
 
     [<Fact>]
-    let ``addConfiguration injects instance`` () =        
+    let ``addConfiguration injects instance`` () =
         let config = config ()
 
         let r =
@@ -29,11 +29,11 @@ module DependencyInjectionTests =
             |> DependencyInjection.addConfiguration (fun _ -> config)
             |> _.BuildServiceProvider()
             |> _.GetRequiredService<MicrobrokerConfiguration>()
-        
+
         r |> should equal config
 
     [<Fact>]
-    let ``addConfiguration injects final instance`` () =        
+    let ``addConfiguration injects final instance`` () =
         let config1 = config ()
         let config2 = { config1 with brokerBaseUrl = "zzz" }
 
@@ -43,11 +43,11 @@ module DependencyInjectionTests =
             |> DependencyInjection.addConfiguration (fun _ -> config2)
             |> _.BuildServiceProvider()
             |> _.GetRequiredService<MicrobrokerConfiguration>()
-        
+
         r |> should equal config2
 
     [<Fact>]
-    let ``addServices injects instance`` () =        
+    let ``addServices injects instance`` () =
         let config = config ()
 
         let sp =
@@ -59,4 +59,3 @@ module DependencyInjectionTests =
         let proxy = sp.GetService<IMicrobrokerProxy>()
 
         proxy |> should not' (equal null)
-
