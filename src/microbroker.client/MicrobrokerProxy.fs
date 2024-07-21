@@ -10,6 +10,11 @@ type MicrobrokerCount =
       count: int64
       futureCount: int64 }
 
+    static member empty(name: string) =
+        { MicrobrokerCount.name = name
+          count = 0
+          futureCount = 0 }
+
 type IMicrobrokerProxy =
     abstract member PostMany: string -> seq<MicrobrokerMessage> -> Task<unit>
     abstract member GetNext: string -> Task<MicrobrokerMessage option>
