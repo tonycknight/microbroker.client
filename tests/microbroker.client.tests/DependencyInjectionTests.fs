@@ -11,20 +11,52 @@ open FsUnit
 
 module DependencyInjectionTests =
 
+    let serviceCollection () =
+        (new ServiceCollection() :> IServiceCollection)
+            .AddSingleton<HttpClient>(new HttpClient())
+            .AddSingleton<ILoggerFactory>(Substitute.For<ILoggerFactory>())
+
+    let config () =
+        { MicrobrokerConfiguration.brokerBaseUrl = "aaa"
+          throttleMaxTime = TimeSpan.FromSeconds 5. }
+
     [<Fact>]
-    let ``addServices returns instance on demand`` () =
-        let sc =
-            (new ServiceCollection() :> IServiceCollection)
-                .AddSingleton<HttpClient>(new HttpClient())
-                .AddSingleton<ILoggerFactory>(Substitute.For<ILoggerFactory>())
+    let ``addConfiguration injects instance`` () =        
+        let config = config ()
 
-        let config =
-            { MicrobrokerConfiguration.brokerBaseUrl = ""
-              MicrobrokerConfiguration.throttleMaxTime = TimeSpan.FromSeconds 5. }
+        let r =
+            serviceCollection ()
+            |> DependencyInjection.addConfiguration (fun _ -> config)
+            |> _.BuildServiceProvider()
+            |> _.GetRequiredService<MicrobrokerConfiguration>()
+        
+        r |> should equal config
 
-        let sc = DependencyInjection.addServices config sc
-        let sp = sc.BuildServiceProvider()
+    [<Fact>]
+    let ``addConfiguration injects final instance`` () =        
+        let config1 = config ()
+        let config2 = { config1 with brokerBaseUrl = "zzz" }
+
+        let r =
+            serviceCollection ()
+            |> DependencyInjection.addConfiguration (fun _ -> config1)
+            |> DependencyInjection.addConfiguration (fun _ -> config2)
+            |> _.BuildServiceProvider()
+            |> _.GetRequiredService<MicrobrokerConfiguration>()
+        
+        r |> should equal config2
+
+    [<Fact>]
+    let ``addServices injects instance`` () =        
+        let config = config ()
+
+        let sp =
+            serviceCollection ()
+            |> DependencyInjection.addConfiguration (fun _ -> config)
+            |> DependencyInjection.addServices
+            |> _.BuildServiceProvider()
 
         let proxy = sp.GetService<IMicrobrokerProxy>()
 
         proxy |> should not' (equal null)
+
