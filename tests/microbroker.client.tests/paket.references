@@ -7,6 +7,7 @@ FsCheck.XUnit
 FsUnit
 coverlet.msbuild
 coverlet.collector
+Microsoft.Extensions.DependencyInjection.Abstractions
 Microsoft.Extensions.Logging
 nsubstitute
 System.Formats.Asn1

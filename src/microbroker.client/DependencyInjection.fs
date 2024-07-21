@@ -3,7 +3,8 @@
 open Microsoft.Extensions.DependencyInjection
 
 module DependencyInjection =
-    let addServices (sp: IServiceCollection) =
-        sp
+    let addServices (config: MicrobrokerConfiguration) (sc: IServiceCollection) =
+        sc
+            .AddSingleton<MicrobrokerConfiguration>(config)
             .AddSingleton<IHttpClient, InternalHttpClient>()
             .AddSingleton<IMicrobrokerProxy, MicrobrokerProxy>()

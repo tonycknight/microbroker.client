@@ -13,6 +13,7 @@
     <Compile Include="StringsTests.fs" />
     <Compile Include="ThrottlingTests.fs" />
     <Compile Include="MicrobrokerProxyTests.fs" />
+    <Compile Include="DependencyInjectionTests.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 
