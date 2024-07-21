@@ -30,7 +30,7 @@ module MicrobrokerProxyTests =
                  count = 1
                  futureCount = 2 } |]
 
-        let resp = ok (counts |> toJson)
+        let resp = counts |> toJson |> ok
         let http = httpClient resp
         let proxy = defaultProxy http
 
@@ -49,14 +49,14 @@ module MicrobrokerProxyTests =
                  count = 1
                  futureCount = 2 } |]
 
-        let resp = ok (counts |> toJson)
+        let resp = counts |> toJson |> ok
         let http = httpClient resp
         let proxy = defaultProxy http
 
         let r = proxy.GetQueueCounts([| Guid.NewGuid().ToString() |]).Result
 
         r.Length |> should equal 0
-            
+
     [<Fact>]
     let ``GetQueueCount on matching name returns value`` () =
 
@@ -67,12 +67,12 @@ module MicrobrokerProxyTests =
                  count = 1
                  futureCount = 2 } |]
 
-        let resp = ok (counts |> toJson)
+        let resp = counts |> toJson |> ok
         let http = httpClient resp
         let proxy = defaultProxy http
 
         let r = proxy.GetQueueCount(name).Result
-        
+
         Option.isSome r |> should equal true
         r.Value.name |> should equal name
         r.Value.count |> should equal counts.[0].count
@@ -88,7 +88,7 @@ module MicrobrokerProxyTests =
                  count = 1
                  futureCount = 2 } |]
 
-        let resp = ok (counts |> toJson)
+        let resp = counts |> toJson |> ok
         let http = httpClient resp
         let proxy = defaultProxy http
 
@@ -108,14 +108,14 @@ module MicrobrokerProxyTests =
                  count = 1
                  futureCount = 2 } |]
 
-        let resp = ok (counts |> toJson)
+        let resp = counts |> toJson |> ok
         let http = httpClient resp
         let proxy = defaultProxy http
 
         let r = proxy.GetQueueCount(name).Result
 
         r |> should equal None
-        
+
     [<Fact>]
     let ``GetNext on empty returns empty`` () =
         let resp = notfound ""

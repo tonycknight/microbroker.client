@@ -87,11 +87,12 @@ type internal MicrobrokerProxy(config: MicrobrokerConfiguration, httpClient: IHt
             Throttling.exponentialWait config.throttleMaxTime (fun () -> getNextFromBroker queue)
 
         member this.GetQueueCounts(queues: string[]) = filteredQueueCounts queues
-            
-        member this.GetQueueCount queue = 
+
+        member this.GetQueueCount queue =
             task {
                 let! counts = filteredQueueCounts [| queue |]
-                return 
+
+                return
                     match counts with
                     | [| c |] -> Some c
                     | _ -> None
