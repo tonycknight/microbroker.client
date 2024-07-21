@@ -14,6 +14,7 @@ type IMicrobrokerProxy =
     abstract member PostMany: string -> seq<MicrobrokerMessage> -> Task<unit>
     abstract member GetNext: string -> Task<MicrobrokerMessage option>
     abstract member GetQueueCounts: string[] -> Task<MicrobrokerCount[]>
+    abstract member GetQueueCount: string -> Task<MicrobrokerCount option>
 
 type internal MicrobrokerProxy(config: MicrobrokerConfiguration, httpClient: IHttpClient, logger: ILoggerFactory) =
     let log = logger.CreateLogger<MicrobrokerProxy>()
@@ -68,19 +69,30 @@ type internal MicrobrokerProxy(config: MicrobrokerConfiguration, httpClient: IHt
                     Array.empty
         }
 
+    let filteredQueueCounts queues =
+        task {
+            let! counts = queueCounts ()
+
+            let isMatch (qc: MicrobrokerCount) =
+                queues
+                |> Seq.exists (fun q -> StringComparer.InvariantCultureIgnoreCase.Equals(qc.name, q))
+
+            return counts |> Array.filter isMatch
+        }
+
     interface IMicrobrokerProxy with
         member this.PostMany queue messages = postManyToBroker queue messages
 
         member this.GetNext queue =
             Throttling.exponentialWait config.throttleMaxTime (fun () -> getNextFromBroker queue)
 
-        member this.GetQueueCounts(queues: string[]) =
+        member this.GetQueueCounts(queues: string[]) = filteredQueueCounts queues
+            
+        member this.GetQueueCount queue = 
             task {
-                let! counts = queueCounts ()
-
-                let isMatch (qc: MicrobrokerCount) =
-                    queues
-                    |> Seq.exists (fun q -> StringComparer.InvariantCultureIgnoreCase.Equals(qc.name, q))
-
-                return counts |> Array.filter isMatch
+                let! counts = filteredQueueCounts [| queue |]
+                return 
+                    match counts with
+                    | [| c |] -> Some c
+                    | _ -> None
             }
