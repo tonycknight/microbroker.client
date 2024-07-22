@@ -187,3 +187,20 @@ module MicrobrokerProxyTests =
         let r = (proxy.PostMany "queue" msgs).Result
 
         http.ReceivedWithAnyArgs().PostAsync (Arg.Any<string>()) (toJson msgs) |> ignore
+
+
+    [<Fact>]
+    let ``Post with value`` () =
+        let resp = ok "[]"
+        let http = httpClientPost resp
+        let proxy = defaultProxy http
+
+        let msg =
+            { MicrobrokerMessage.content = "test"
+              messageType = "test msg"
+              created = DateTimeOffset.UtcNow
+              active = DateTimeOffset.UtcNow }
+
+        let r = (proxy.Post "queue" msg).Result
+
+        http.ReceivedWithAnyArgs().PostAsync (Arg.Any<string>()) (toJson [| msg |]) |> ignore

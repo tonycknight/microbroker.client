@@ -16,6 +16,7 @@ type MicrobrokerCount =
           futureCount = 0 }
 
 type IMicrobrokerProxy =
+    abstract member Post: string -> MicrobrokerMessage -> Task<unit>
     abstract member PostMany: string -> seq<MicrobrokerMessage> -> Task<unit>
     abstract member GetNext: string -> Task<MicrobrokerMessage option>
     abstract member GetQueueCounts: string[] -> Task<MicrobrokerCount[]>
@@ -86,6 +87,8 @@ type internal MicrobrokerProxy(config: MicrobrokerConfiguration, httpClient: IHt
         }
 
     interface IMicrobrokerProxy with
+        member this.Post queue message = postManyToBroker queue [ message ]
+
         member this.PostMany queue messages = postManyToBroker queue messages
 
         member this.GetNext queue =
