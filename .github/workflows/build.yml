@@ -94,7 +94,7 @@ jobs:
         with:
           path: ${{ github.workspace }}/publish/codecoveragedata/Cobertura.xml
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          minimum_coverage: 50
+          minimum_coverage: 75
           fail_below_threshold: true
           show_line: true
           show_branch: true
