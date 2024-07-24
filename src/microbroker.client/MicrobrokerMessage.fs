@@ -20,16 +20,18 @@ module MicrobrokerMessages =
         Newtonsoft.Json.JsonConvert.SerializeObject(messages)
 
     let create () =
-        { MicrobrokerMessage.created = Time.now ()
+        let now = Time.now ()
+
+        { MicrobrokerMessage.created = now
           content = ""
           messageType = ""
-          active = DateTimeOffset.MinValue }
+          active = now }
 
-    let active (active: DateTimeOffset) (message: MicrobrokerMessage) = { message with active = active }
+    let active (active: unit -> DateTimeOffset) (message: MicrobrokerMessage) = { message with active = active () }
 
-    let delayed (delay: TimeSpan) (message: MicrobrokerMessage) =
-        { message with
-            active = Time.now () |> Time.add delay }
+    let delayed (delay: unit -> TimeSpan) (message: MicrobrokerMessage) =
+        let active = Time.now () |> Time.add (delay ())
+        { message with active = active }
 
     let messageType messageType (message: MicrobrokerMessage) =
         { message with

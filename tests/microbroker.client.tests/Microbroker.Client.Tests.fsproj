@@ -14,6 +14,7 @@
     <Compile Include="ThrottlingTests.fs" />
     <Compile Include="MicrobrokerCountTests.fs" />
     <Compile Include="MicrobrokerProxyTests.fs" />
+    <Compile Include="MicrobrokerMessagesTests.fs" />
     <Compile Include="DependencyInjectionTests.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>

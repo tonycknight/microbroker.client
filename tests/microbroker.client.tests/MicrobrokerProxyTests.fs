@@ -203,4 +203,5 @@ module MicrobrokerProxyTests =
 
         let r = (proxy.Post "queue" msg).Result
 
-        http.ReceivedWithAnyArgs().PostAsync (Arg.Any<string>()) (toJson [| msg |]) |> ignore
+        http.ReceivedWithAnyArgs().PostAsync (Arg.Any<string>()) (toJson [| msg |])
+        |> ignore
