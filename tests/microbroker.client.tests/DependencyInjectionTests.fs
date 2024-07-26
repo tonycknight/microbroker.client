@@ -17,7 +17,7 @@ module DependencyInjectionTests =
             .AddSingleton<ILoggerFactory>(Substitute.For<ILoggerFactory>())
 
     let config () =
-        { MicrobrokerConfiguration.brokerBaseUrl = "aaa"
+        { MicrobrokerConfiguration.brokerBaseUrl = "aaaa"
           throttleMaxTime = TimeSpan.FromSeconds 5. }
 
     [<Fact>]
