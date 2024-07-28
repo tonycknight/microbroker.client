@@ -7,7 +7,7 @@ open Xunit
 
 module Tests =
     let proxy () =
-        Factories.proxy "http://localhost:8080/"
+        Factories.apiBaseUrl () |> Factories.proxy 
 
     let getAllMessages proxy queue =
         let rec getAll (proxy: IMicrobrokerProxy) queue results =

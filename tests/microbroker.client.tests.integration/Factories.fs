@@ -7,6 +7,10 @@ open Microbroker.Client
 
 module internal Factories =
 
+    let apiBaseUrl () =
+        System.Environment.GetEnvironmentVariable "MICROBROKER_CLIENT_INTEGRATION_TEST_TARGETURL" |> Option.ofNull
+            |> Option.defaultValue "http://localhost:8080/"
+
     let http () =
         let httpClient = new HttpClient()
         fun () -> httpClient
