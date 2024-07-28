@@ -25,6 +25,7 @@ group Tests
     nuget FSharp.Core
     nuget FsUnit
     nuget Microsoft.NET.Test.Sdk
+    nuget Microsoft.Extensions.DependencyInjection.Abstractions
     nuget Microsoft.Extensions.Logging
     nuget Newtonsoft.Json
     nuget NSubstitute

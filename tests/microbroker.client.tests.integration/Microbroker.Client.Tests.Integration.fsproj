@@ -9,13 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="TestUtils.fs" />
-    <Compile Include="StringsTests.fs" />
-    <Compile Include="ThrottlingTests.fs" />
-    <Compile Include="MicrobrokerCountTests.fs" />
-    <Compile Include="MicrobrokerProxyTests.fs" />
-    <Compile Include="MicrobrokerMessagesTests.fs" />
-    <Compile Include="DependencyInjectionTests.fs" />
+    <Compile Include="Factories.fs" />
+    <Compile Include="Tests.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 
@@ -24,4 +19,5 @@
   </ItemGroup>
 
   <Import Project="..\..\.paket\Paket.Restore.targets" />
+
 </Project>
