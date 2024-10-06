@@ -7,7 +7,8 @@ type MicrobrokerMessage =
     { messageType: string
       content: string
       created: DateTimeOffset
-      active: DateTimeOffset }
+      active: DateTimeOffset
+      expiry: DateTimeOffset }
 
 module MicrobrokerMessages =
     let internal fromString (value: string) =
@@ -25,7 +26,8 @@ module MicrobrokerMessages =
         { MicrobrokerMessage.created = now
           content = ""
           messageType = ""
-          active = now }
+          active = now
+          expiry = DateTimeOffset.MaxValue }
 
     let active (active: unit -> DateTimeOffset) (message: MicrobrokerMessage) = { message with active = active () }
 
@@ -38,3 +40,7 @@ module MicrobrokerMessages =
             messageType = messageType }
 
     let content content (message: MicrobrokerMessage) = { message with content = content }
+
+    let expiry (delay: unit -> TimeSpan) (message: MicrobrokerMessage) =
+        let expires = Time.now () |> Time.add (delay ())
+        { message with expiry = expires }

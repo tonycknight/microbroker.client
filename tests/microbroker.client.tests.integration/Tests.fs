@@ -121,6 +121,30 @@ module Tests =
         }
 
     [<Fact>]
+    let ``Post expiring msg to new queue returns count and no message`` () =
+        task {
+            let proxy = proxy ()
+            let queue = Factories.queueName ()
+            let expiry = TimeSpan.FromSeconds 5
+
+            let! count = proxy.GetQueueCount queue
+            count |> should equal None
+
+            let msg = Factories.msg () |> MicrobrokerMessages.expiry (fun () -> expiry)
+
+            do! proxy.Post queue msg
+
+            let! count = proxy.GetQueueCount queue
+            count.Value.count |> should equal 1
+
+            do! System.Threading.Tasks.Task.Delay(expiry.Add(TimeSpan.FromSeconds 2))
+
+            let! msg2 = proxy.GetNext queue
+
+            msg2 |> should equal None
+        }
+
+    [<Fact>]
     let ``PostMany to queue repeated posts are FIFO`` () =
         task {
             let proxy = proxy ()
