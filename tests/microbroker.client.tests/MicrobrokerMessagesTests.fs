@@ -51,3 +51,14 @@ module MicrobrokerMessagesTests =
         let r = create () |> content c
 
         r.content |> should equal c
+
+    [<Fact>]
+    let ``expiry produces time in future`` () =
+        let start = DateTimeOffset.UtcNow
+        let span = TimeSpan.FromDays 1.
+        let finish = start.Add(span).Add(TimeSpan.FromSeconds(1.))
+
+        let r = create () |> expiry (fun () -> span)
+
+        r.expiry |> should greaterThan start
+        r.expiry |> should lessThan finish
