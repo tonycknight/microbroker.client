@@ -137,7 +137,7 @@ module Tests =
             let! count = proxy.GetQueueCount queue
             count.Value.count |> should equal 1
 
-            do! System.Threading.Tasks.Task.Delay ( expiry.Add(TimeSpan.FromSeconds 2) )
+            do! System.Threading.Tasks.Task.Delay(expiry.Add(TimeSpan.FromSeconds 2))
 
             let! msg2 = proxy.GetNext queue
 

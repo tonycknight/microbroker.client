@@ -142,7 +142,7 @@ module MicrobrokerProxyTests =
             { MicrobrokerMessage.content = "test"
               messageType = "test msg"
               created = DateTimeOffset.UtcNow
-              active = DateTimeOffset.UtcNow 
+              active = DateTimeOffset.UtcNow
               expiry = DateTimeOffset.MaxValue }
 
         let resp = msg |> toJson |> ok
@@ -183,7 +183,7 @@ module MicrobrokerProxyTests =
             [ { MicrobrokerMessage.content = "test"
                 messageType = "test msg"
                 created = DateTimeOffset.UtcNow
-                active = DateTimeOffset.UtcNow 
+                active = DateTimeOffset.UtcNow
                 expiry = DateTimeOffset.MaxValue } ]
 
         let r = (proxy.PostMany "queue" msgs).Result
@@ -201,7 +201,7 @@ module MicrobrokerProxyTests =
             { MicrobrokerMessage.content = "test"
               messageType = "test msg"
               created = DateTimeOffset.UtcNow
-              active = DateTimeOffset.UtcNow 
+              active = DateTimeOffset.UtcNow
               expiry = DateTimeOffset.MaxValue }
 
         let r = (proxy.Post "queue" msg).Result
