@@ -14,7 +14,7 @@ module MicrobrokerMessagesTests =
 
         r.content |> should equal ""
         r.messageType |> should equal ""
-        r.active |> should equal r.created
+        r.active |> should equal DateTimeOffset.MinValue
         r.created |> should greaterThan DateTimeOffset.MinValue
 
     [<Fact>]
