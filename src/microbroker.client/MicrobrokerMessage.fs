@@ -26,7 +26,7 @@ module MicrobrokerMessages =
         { MicrobrokerMessage.created = now
           content = ""
           messageType = ""
-          active = now
+          active = DateTimeOffset.MinValue
           expiry = DateTimeOffset.MaxValue }
 
     let active (active: unit -> DateTimeOffset) (message: MicrobrokerMessage) = { message with active = active () }
