@@ -9,6 +9,4 @@ module DependencyInjection =
         sc.AddSingleton<MicrobrokerConfiguration>(config sp)
 
     let addServices (sc: IServiceCollection) =
-        sc
-            .AddSingleton<IHttpClient, InternalHttpClient>()
-            .AddSingleton<IMicrobrokerProxy, MicrobrokerProxy>()
+        sc.AddSingleton<IHttpClient, InternalHttpClient>().AddSingleton<IMicrobrokerProxy, MicrobrokerProxy>()
