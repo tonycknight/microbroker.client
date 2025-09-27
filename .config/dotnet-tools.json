@@ -16,13 +16,6 @@
       ],
       "rollForward": false
     },
-    "pkgchk-cli": {
-      "version": "0.3.542",
-      "commands": [
-        "pkgchk"
-      ],
-      "rollForward": false
-    },
     "dotnet-reportgenerator-globaltool": {
       "version": "5.4.16",
       "commands": [
