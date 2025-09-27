@@ -3,28 +3,28 @@
   "isRoot": true,
   "tools": {
     "paket": {
-      "version": "8.0.3",
+      "version": "9.0.2",
       "commands": [
         "paket"
       ],
       "rollForward": false
     },
     "fantomas": {
-      "version": "6.3.15",
+      "version": "7.0.3",
       "commands": [
         "fantomas"
       ],
       "rollForward": false
     },
     "pkgchk-cli": {
-      "version": "0.2.388",
+      "version": "0.3.542",
       "commands": [
         "pkgchk"
       ],
       "rollForward": false
     },
     "dotnet-reportgenerator-globaltool": {
-      "version": "5.2.3",
+      "version": "5.4.16",
       "commands": [
         "reportgenerator"
       ],
