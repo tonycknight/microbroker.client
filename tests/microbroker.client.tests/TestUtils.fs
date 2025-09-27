@@ -38,8 +38,7 @@ module internal TestUtils =
     let httpClientPost (response: HttpRequestResponse) =
         let http = Substitute.For<IHttpClient>()
 
-        (http.PostAsync (Arg.Any<string>()) (Arg.Any<string>()))
-            .Returns(Tasks.toTaskResult response)
+        (http.PostAsync (Arg.Any<string>()) (Arg.Any<string>())).Returns(Tasks.toTaskResult response)
         |> ignore
 
         http
