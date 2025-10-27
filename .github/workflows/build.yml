@@ -65,7 +65,7 @@ jobs:
           dotnet reportgenerator -reports:"./tests/**/coverage.info" -targetdir:"./publish/codecoveragedata" -reporttypes:"Cobertura"
 
       - name: Archive Test results
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         if: always()
         with:
           name: Unit_tests_results
@@ -73,7 +73,7 @@ jobs:
             ./tests/**/TestResults/*
             
       - name: Archive Code coverage
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         if: always()
         with:
           name: Full_code_coverage_report
